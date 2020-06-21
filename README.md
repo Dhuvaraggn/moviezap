@@ -9,16 +9,20 @@ Prerequisites
 2. Setup virtual environment
 
     #install virtualenv 
+    
     sudo pip install virtualenv
 
     #make directory for virtualenv
+    
     mkdir envs
 
     #Create virtual environment
+    
     virtualenv envs
 
     #Activate virtual environment
-.   envs/bin/activate
+        
+        . envs/bin/activate
 
 3. Clone git repository
 
