@@ -10,15 +10,15 @@ Prerequisites
 
     #install virtualenv 
     
-    sudo pip install virtualenv
+        sudo pip install virtualenv
 
     #make directory for virtualenv
     
-    mkdir envs
+        mkdir envs
 
     #Create virtual environment
     
-    virtualenv envs
+        virtualenv envs
 
     #Activate virtual environment
         
@@ -26,20 +26,20 @@ Prerequisites
 
 3. Clone git repository
 
-    git clone https://github.com/Dhuvaraggn/moviezap.git
+        git clone https://github.com/Dhuvaraggn/moviezap.git
     
 4. Install requirements
 
-    cd moviezap/
-    pip install -r requirements.txt
+        cd moviezap/
+        pip install -r requirements.txt
     
 5. Run the server
 
-     #Make migrations
+     # Make migrations
         python manage.py makemigrations
         python manage.py migrate
 
-    #Run the server
+    # Run the server
         python manage.py runserver 0:8000
 
     #your server is up on port 8000
