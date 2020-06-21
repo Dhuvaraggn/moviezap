@@ -23,3 +23,25 @@ Prerequisites
 3. Clone git repository
 
     git clone https://github.com/Dhuvaraggn/moviezap.git
+    
+4. Install requirements
+
+    cd moviezap/
+    pip install -r requirements.txt
+    
+5. Run the server
+
+     #Make migrations
+        python manage.py makemigrations
+        python manage.py migrate
+
+    #Run the server
+        python manage.py runserver 0:8000
+
+    #your server is up on port 8000
+    
+    Try opening http://localhost:8001 in the browser. Now you are good to go.
+
+URLS
+    start page : http://localhost:8000/intro/
+    
