@@ -35,7 +35,7 @@ Prerequisites
 
 5. Download Movies Database
 
-        curl "https://docs.google.com/uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq"
+        wget -L "https://docs.google.com/uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq"
         mv "uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq" "newmovies.csv"
         rm "uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq"
  
