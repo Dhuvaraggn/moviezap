@@ -2,7 +2,6 @@ from django.shortcuts import render
 import csv 
 import pandas as pd
 import numpy as np
-from bs4 import BeautifulSoup
 import os
 import re
 
