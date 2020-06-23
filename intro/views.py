@@ -13,7 +13,7 @@ def moviesearch(request):
             wrt=csv.writer(csvfile)
             for key,value in dict1.items():
                 wrt.writerow([key,value])
-    df=pd.read_csv("~/Downloads/newmovies.csv",index_col="imdb_title_id")
+    df=pd.read_csv("newmovies.csv",index_col="imdb_title_id")
     titles=df["title"]
     titles
 
@@ -145,7 +145,7 @@ def startapp(request):
 def getstart(dic):
     yearv=dic["year"];languagev=dic["lang"];genrev=dic["genre"]
     print(yearv,languagev,genrev)
-    df=pd.read_csv("~/Downloads/newmovies.csv",index_col="imdb_title_id")
+    df=pd.read_csv("newmovies.csv",index_col="imdb_title_id")
     #txtfile=open("/template/res.html","w")
 
     lg=df["language"]
@@ -241,7 +241,7 @@ def searchtop(request):
             wrt=csv.writer(csvfile)
             for key,value in dict1.items():
                 wrt.writerow([key,value])
-    df=pd.read_csv("~/Downloads/newmovies.csv",index_col="imdb_title_id")
+    df=pd.read_csv("newmovies.csv",index_col="imdb_title_id")
     titles=df["title"]
     titles
 
