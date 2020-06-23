@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 
-df=pd.read_csv("~/Documents/newmovies.csv",index_col="imdb_title_id")
+df=pd.read_csv("newmovies.csv",index_col="imdb_title_id")
 titles=df["title"]
 titles
 
