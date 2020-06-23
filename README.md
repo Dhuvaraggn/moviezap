@@ -1,5 +1,5 @@
 # MovieZap
-MovieZap Django based webpage which helps in telling Top50 movies based on year of movie release , language and genre of the movie..
+MovieZap Django based webpage which helps in telling Top50 movies based on year of movie release , language and genre of the movie.. also u will get the details of movies based on MovieZap Search Engine with high optimization using regular expression  and display movies based on the rating.
 
 Prerequisites
 1. Install Python
@@ -45,8 +45,8 @@ Prerequisites
 
     #your server is up on port 8000
     
-    Try opening http://localhost:8001 in the browser. Now you are good to go.
+    Try opening http://localhost:8001/ in the browser. Now you are good to go.
 
 URLS
-    start page : http://localhost:8000/intro/
+    start page : http://localhost:8000/
     
