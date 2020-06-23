@@ -21,5 +21,7 @@ from intro import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('intro/',views.introget),
-    path('intro/search/',views.getmovie)
+    path('top/',views.getmovie),
+    path('',views.startapp),
+    path('top/search/',views.searchtop),
 ]

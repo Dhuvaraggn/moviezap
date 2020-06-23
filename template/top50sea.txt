@@ -1,0 +1,26 @@
+<html itemscope="" itemtype="http://schema.org/WebPage" lang="en-IN">
+ <body>
+ 
+<center>
+  <form id="f1" action='/top/search/' method="POST">
+    {% csrf_token %}
+    <center>
+        <h1>
+        MovieZap Search Engine
+        </h1>
+      </center>
+       
+          
+          <input  style="box-shadow:         3px 3px 5px 6px lightcoral;border-radius:20px;border:5px solid red; font-size:25px;width:450px;height:50px;border-left-width:900px;line-height:1px;border-width:5px" aria-autocomplete="both" aria-haspopup="false" aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" class="gLFyf gsfi" data-ved="0ahUKEwiNy5fJ15LqAhUIzzgGHQkVC1IQ39UDCAQ" jsaction="paste:puy29d" maxlength="2048" name="search" onsearch="submitse()" placeholder="MovieZap Search" role="combobox" spellcheck="false" title="Search" type="search" value=""/>
+          
+          
+          
+        
+  <div style="width:480px;height:50px;">  
+      </center>
+       <center> 
+      <input style="box-shadow:         3px 3px 5px 6px lightslategray;"class="gNO89b" aria-label="Google Search" name="btnK" type="submit" data-ved="0ahUKEwjbk4ul5orqAhX0xzgGHYlmAREQ4dUDCAo" value="MovieZap Search"> </input> 
+    </center>
+  </form> 
+  <div style="width:480px;height:90px;">
+  </div>

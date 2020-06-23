@@ -2,13 +2,146 @@ from django.shortcuts import render
 import csv 
 import pandas as pd
 import numpy as np
+from bs4 import BeautifulSoup
+import os
+import re
 
+def moviesearch(request):
+    dict1=request.POST
+    txt=dict1["search"]
+    print(dict1)
+    with open('moviesearchlist.csv','a') as csvfile:
+            wrt=csv.writer(csvfile)
+            for key,value in dict1.items():
+                wrt.writerow([key,value])
+    df=pd.read_csv("~/Downloads/newmovies.csv",index_col="imdb_title_id")
+    titles=df["title"]
+    titles
+
+    outdisp=df[["title","language","year"]]
+    outputd=pd.DataFrame(outdisp)
+
+    rating=df[["avg_vote"]]
+    ratd=pd.DataFrame(rating)
+
+
+    search=txt.lower().replace(" ","")
+    tilname=[]
+    '''
+    for i,j in titles.items():
+        if(j==search):
+            tilname.append(i)
+    if(len(tilname)>1):
+        resd=outputd[tilname]
+    print(tilname)
+    '''
+    if(len(tilname)==0):
+        mout=[];crct="";
+        for i,j  in titles.items():
+            str=j.split(" ")
+            ans=""
+            for k in str:
+                ans+=k.lower()
+            pat="^"+search+".*"
+            pat2="^"+search+"$"
+            if(re.search(pat2,ans)):
+                crct=i
+            if(re.search(pat,ans)):
+                mout.append(i)
+        if(len(mout)==0):
+            for i,j  in titles.items():
+                str=j.split(" ")
+                ans=""
+                for k in str:
+                    ans+=k.lower()
+                pat=".*"+search+".*"
+                if(re.search(pat,ans)):
+                    mout.append(i)
+            
+        resrat=ratd.loc[mout]
+        ressort=resrat.sort_values(["avg_vote"],ascending=False)
+        resrated=ressort.head(5)
+        topse=resrated["avg_vote"]
+        
+        for i,j in topse.items():
+            tilname.append(i)
+        resd=outputd.loc[tilname]
+
+        if(not crct==""):
+            bst=outputd.loc[crct]
+            print(bst["title"])
+            fis=pd.DataFrame({'title':bst["title"],"language":bst["language"],"year":bst["year"]},index=[0])
+            resd = pd.concat([fis, resd[:]]).reset_index(drop = True) 
+            print(resd.head(5))
+
+    resdf=pd.DataFrame(resd)
+    htres=resdf.to_html(index=False)
+    f=open('template/intro.js','w') 
+    fir=open('template/introfirst.txt',"r")
+    sec=open('template/introsec.txt',"r")
+    txt1=fir.read()
+    txt2=sec.read()
+    if(resdf.empty):
+        tx=txt1+"<center><h1>No movie found</h1></center>"+txt2
+        f.write(tx  )
+    else:
+        f.write(txt1)
+        f.write('<center>')
+        f.write(htres)
+        f.write('</center>')
+        f.write(txt2)
+
+
+'''
+    tli=resd["title"]
+    lli=resd["language"]
+    yli=resd["year"] 
+    print(tli,lli,yli,type(tli))
+    base = os.path.dirname(os.path.abspath(__file__))
+    html = open(os.path.join('/home/dhuvaraggnajithraj/vscode-project/djangofirst/firstweb/first/template', 'intro.js'))
+    soup = BeautifulSoup(html,features="lxml")
+    tval=tli.values
+    lval=lli.values
+    yval=yli.values
+    print(tval)
+    print(lval)
+    print(yval)
+   # ,l,lv,y,yv  ,lli.items(),yli.items()
+
+    for i in soup.find(id="t1").find_all():
+        i.replace_with(tval[0])
+    for i in soup.find(id="t2").find_all():
+        i.replace_with(tval[1])
+    for i in soup.find(id="t3").find_all():
+        i.replace_with(tval[2])
+
+    for i in soup.find(id="l1").find_all():
+        i.replace_with(lval[0])
+    for i in soup.find(id="l2").find_all():
+        i.replace_with(lval[1])
+    for i in soup.find(id="l3").find_all():
+        i.replace_with(lval[2])
+    
+
+    with open("template/intro.js", "wb") as f_output:
+        f_output.write(soup.prettify().encode('utf-8'))  
+
+    for i in soup.find(id="y1").find_all():
+        i.replace_with(int(yval[0]))
+    for i in soup.find(id="y2").find_all():
+        i.replace_with(yval[1])
+    for i in soup.find(id="y3").find_all():
+        i.replace_with(yval[2])
+'''    
 
 # Create your views here.
 def introget(request):
-    return render(request,'intro.html')
+    if request.method=='POST':
+        moviesearch(request)
+    return render(request,'intro.js')
 
-
+def startapp(request):
+    return render(request,'index.html')
 
 def getstart(dic):
     yearv=dic["year"];languagev=dic["lang"];genrev=dic["genre"]
@@ -65,17 +198,20 @@ def getstart(dic):
     #top=ans.head(30).index
     nov=ans.sort_values(["votes"],ascending=False)
     top=nov.head(50).index
+    dpdf=df.drop(["votes"],axis=1)
 
-    sortoutd=df.loc[top]
+    sortoutd=dpdf.loc[top]
     #print(sortoutd)
     resu=pd.DataFrame(sortoutd)
-    movie=resu.to_html()
+
+    movie=resu.to_html(index=False)
+    searc=open('template/top50sea.txt','r')
     f=open('template/res.html','w') 
     f.write("<html><body>")
-    f.write('<form action="/intro/" method="POST"> <input class="gNO89b" aria-label="Google Search" name="btnK" type="submit" data-ved="0ahUKEwjbk4ul5orqAhX0xzgGHYlmAREQ4dUDCAo" value="MovieZap Search">  {% csrf_token %}</input>   </form>      ')
+    f.write(searc.read())
     f.write(movie)
     f.write("</body></html>")
-    print(movie)
+
     return movie
     
   
@@ -89,7 +225,7 @@ def getmovie(request):
         l=dict1["lang"]
         dic={"year":y,"genre":g,"lang":l}
         getstart(dic)
-        with open('moviesearch.csv','a') as csvfile:
+        with open('moviesearchtop.csv','a') as csvfile:
             wrt=csv.writer(csvfile)
             for key,value in dict1.items():
                 wrt.writerow([key,value])
@@ -97,3 +233,76 @@ def getmovie(request):
         
     return render(request,'res.html')
 
+
+def searchtop(request):
+    dict1=request.POST
+    txt=dict1["search"]
+    print(dict1)
+    with open('moviesearchlist.csv','a') as csvfile:
+            wrt=csv.writer(csvfile)
+            for key,value in dict1.items():
+                wrt.writerow([key,value])
+    df=pd.read_csv("~/Downloads/newmovies.csv",index_col="imdb_title_id")
+    titles=df["title"]
+    titles
+
+    rating=df[["avg_vote"]]
+    ratd=pd.DataFrame(rating)
+
+
+    search=txt.lower().replace(" ","")
+    tilname=[]
+
+    if(len(tilname)==0):
+        mout=[];crct="";
+        for i,j  in titles.items():
+            str=j.split(" ")
+            ans=""
+            for k in str:
+                ans+=k.lower()
+            pat="^"+search+".*"
+            pat2="^"+search+"$"
+            if(re.search(pat2,ans)):
+                crct=i
+            if(re.search(pat,ans)):
+                mout.append(i)
+        if(len(mout)==0):
+            for i,j  in titles.items():
+                str=j.split(" ")
+                ans=""
+                for k in str:
+                    ans+=k.lower()
+                pat=".*"+search+".*"
+                if(re.search(pat,ans)):
+                    mout.append(i)
+            
+        resrat=ratd.loc[mout]
+        ressort=resrat.sort_values(["avg_vote"],ascending=False)
+        resrated=ressort.head(7)
+        topse=resrated["avg_vote"]
+        
+        for i,j in topse.items():
+            tilname.append(i)
+        resd=df.loc[tilname]
+
+        if(not crct==""):
+            bst=df.loc[crct]
+            fis=pd.DataFrame({'title':bst["title"],"language":bst["language"],"year":bst["year"],"writer":bst["writer"],"director":bst["director"],"date_published":bst["date_published"],"genre":bst["genre"],"country":bst["country"],"actors":bst["actors"],"description":bst["description"],"avg_vote":bst["avg_vote"]},index=[0])
+            resd = pd.concat([fis, resd[:]]).reset_index(drop = True) 
+          
+    outdp=resd.drop(["votes"],axis=1)
+    resdf=pd.DataFrame(outdp)
+    result=resdf.to_html(index=False)
+
+    s=open('template/topsear.html',"w") 
+    sir=open('template/top50sea.txt',"r")
+    if(resdf.empty):
+        tx=sir.read()+"<center><h1>No movie found</h1></center></form></body></html>"
+    else:
+        tx=sir.read()+result+'</form></body></html>'
+    s.write(tx)
+
+    op=open('template/topsear.html',"r")
+
+    s.close();sir.close();op.close()
+    return render(request,'topsear.html')
