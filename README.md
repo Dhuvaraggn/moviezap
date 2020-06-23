@@ -32,8 +32,14 @@ Prerequisites
 
         cd moviezap/
         pip install -r requirements.txt
-    
-5. Run the server
+
+5. Download Movies Database
+
+        curl "https://docs.google.com/uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq"
+        mv "uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq" "newmovies.csv"
+        rm "uc?export=download&id=1jqS_vNkDnmgoS9YH7fkdr2LAtIC3QJYq"
+ 
+6. Run the server
 
     # Run the server
         python manage.py runserver 0:8000
