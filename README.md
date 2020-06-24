@@ -41,11 +41,11 @@ Prerequisites
 6. Run the server
 
     # Run the server
-        python manage.py runserver 0:8000
+        python manage.py runserver
 
     #your server is up on port 8000
     
-    Try opening http://localhost:8001/ in the browser. Now you are good to go.
+    Try opening http://localhost:8000/ in the browser. Now you are good to go.
 
 URLS
     start page : http://localhost:8000/
